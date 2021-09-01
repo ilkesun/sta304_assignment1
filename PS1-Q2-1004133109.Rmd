@@ -1,0 +1,59 @@
+---
+title: "COVID-19 Survey"
+author: "Ilke Sun"
+date: "October 2nd, 2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 2
+
+# Part a
+
+My survey is related to the COVID-19 outbreak. The goal of this survey is to understand the relationship between when people expect that the vaccine will be available and how cautious people are during pandemic. 
+
+I believe that almost everyone has an expectation of going back to the normality prior to the outbreak. The pandemic affected individuals in various way. The main goal of each individual is to maintain their health. Every individual takes different precautions in order to achieve this goal, these precautions may include washing hands, wearing a mask and self-isolating. For our analysis individual cautiousness is obtained through questions regarding washing hands frequency, travel frequency and wearing a mask or not. Moreover, the question regarding availability of the vaccine is stated as "When do you think vaccine will be available to general public?". 
+
+I believe that if an individual expects that the vaccine is going to be available in nearer future, that individual is going to take less precautions. However, taking precautions is most probably related to variables besides the idea about availability of the vaccine, it may also depend on the experience with the virus. For example, if an individual's friend died because of COVID-19, that person may take way more precautions compared to someone who doesn't know anyone that had to go through this illness. Hence, we will control for variables that may have an affect on how cautious people are regarding to pandemic so that we can observe the true effect of when people expect that the vaccine will be available on taking precautions.
+
+# Part b
+
+Easiest way to do this survey would be sending it to UofT students. Students can be reached via e-mail and participation would be voluntary. Implementing the survey that way would inhibit this study to have Canada population as my target population, because data that samples undergraduates only may differ in terms of outcomes with general public. That is due to being educated may have correlations with precautions taken by an individual (i.e. people who are less educated may not be aware of the outcomes of the virus, hence, they make take less precautions). 
+
+Although, I won't be able to obtain findings about the general population, I would still use undergraduates as my sample population since it would be less costly, faster, and even maybe more accurate since I'd expect undergraduate students to be more familiar with surveys. Hence, my target population would be undergraduates in Canada. I would want to generalize my findings to all undergraduate students all across the world but this is very unlikely since where an individual is from may have various implications on how much precautions he takes regarding the virus (e.g. someone living in a country where wearing a mask isn't mandatory). If possible, I would want to send this survey to every undergraduate in Canada, so that we have abundance of data and we can apply our findings to target population, undergraduates in Canada, without worrying about external validity.
+
+Overall, our target population is undergraduates in Canada, frame population is University of Toronto undergraduates and sample population is the one's who voluntarily complete this survey. The possible drawbacks are not being able to generalize the findings to Canadian population, not getting enough response and respondent filling out false information. However, this is the most realistic, possibly cheapest and easiest way to conduct this survey.
+
+# Part c
+
+Here is the link to my survey:
+
+https://docs.google.com/forms/d/1mbdHukbWmiuetMM7nzwq4Mhj1lM38WeFimIcAuHK9Lc/edit
+
+# Part d
+
+Some examples questions from the survey:
+
+- How close were you with the person who had the COVID-19 virus? 
+
+- When do you think vaccine will be available to general public? 
+
+- How cautious are you about COVID-19?
+
+First question is for the control variable. As stated in Part a, one's closeness with someone that has went through COVID-19 illness may influence how much precautions one takes. This question is answered through a linear scale where 0 indicates "I don't know anyone that had the virus.", and 5 indicates "I am really close with person that had the virus." One possible drawback from this question is that being close to someone is quite subjective which may cause different individuals to respond in different patterns. However, self-report is the only possible way to understand the salience of the person, who has went through COVID-19, to the participant. Another possible drawback from this question is that we do not have data or an analysis that suggests people would take more precautions if someone close to them was/is infected. However, Albert Bandura's social learning theory suggests that people learn without additional reinforcement just by observing and imitating others, moreover, this way of learning may fasten if the person being observed is more salient to us. Thus, this question and various others can serve as controls in order to comprehend the true effect of the anticipation of the vaccine on how cautious people are. 
+
+Second question is to obtain data for our explanatory variable of interest. The question can be answered in multiple choice which are time-periods that are getting more distant from now. These periods, that is our choice set, vary from "Before 2021" to "After 2023". These time periods are concrete, hence, it does not depend on subjectivity of the participant (i.e. "Vaccine will be available soon") which is a good sign for our analysis. However, these time periods can be spaced in a better way. I am not sure what is the expectation time for the vaccine on average. Different countries have different predictions regarding when the vaccine will be available, moreover, even different candidates for presidency of USA have drastically different expectations on when the vaccine will be available. Hence, the choice set can be designed in a way that takes the average anticipation as median value so that we'll have greater variance. For example, if this question had three potential different answers: "Now", "Between 2021 and 2025" and "After 2025", people would most likely select "Between 2021 and 2025" and we would observe almost no variation. Although, this is an extreme example learning about target population's expectation on how long it will take for general public to be able to get vaccination may help us get more accurate data and more variation. Furthermore, this variation may explain the variation in the outcome variable which is the main goal of this study. 
+
+Third question is related to our response variable, how much precautions people take. It is again answered in linear scale ranging from 1 to 10, where 1 is "I am not" and 10 is "I am really cautious".This is not the only question for our response variable, there are various other questions such as how often do you wash your hands, did you self-isolate after traveling, how many people were in the most crowded place you have been in since January 2020 and so on. I believe, those questions would be better parameters to understand how much precautions an individual is actually taking. However, it is important to get a self-report of how much people think they are being cautious as well. This may entail further understanding of an individual's social conditions and/or it can serve as a checker to see if people are answering the questions in an appropriate manner. If someone wears mask, washes hands relatively more, socially isolates, hasn't been in a public place and selects 0 in the cautious scale, it is most probable that person is just clicking different answers. The main drawback of this question is subjectivity, an individual may believe that they are doing their best to be safe but actually not doing the bare minimum. Also, this question may highly influenced by social desirability phenomena which is when a participant answers to question in socially desirable way rather than answering it as objectively as objectively as possible. 
+
+
+# Part e
+
+Bibliography:
+
+1. Wu, Changbao, and Mary E. Thompson. "Basic Concepts in Survey Sampling." Sampling Theory and Practice. Springer, Cham, 2020. 3-15.
+
+2. Bandura, Albert. “Social Learning Theory of Aggression.” Wiley Online Library, John Wiley &amp; Sons, Ltd, 7 Feb. 2006, onlinelibrary.wiley.com/doi/abs/10.1111/j.1460-2466.1978.tb01621.x. 

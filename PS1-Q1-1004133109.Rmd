@@ -1,0 +1,123 @@
+---
+title: "Problem Set 1"
+author: "Ilke Sun"
+date: "02/10/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+# Part a
+```{r, include = F}
+library(opendatatoronto)
+library(tidyverse)
+library(visdat)
+library(skimr)
+library(dplyr)
+library(ggplot2)
+package <- show_package("fc4d95a6-591f-411f-af17-327e6c5d03c7")
+package
+package_resources <- list_package_resources(package)
+package_resources
+crime_data <- get_resource(package_resources)
+```
+
+The data set includes the Crime Data by neighborhood in Toronto starting from 2014 up to, and including, 2019. There are 62 variables and 140 observations in the data set. The observations are 140 non-overlapping areas, which are the different neighborhoods. The variables include name of the neighborhood, population, assaults counts, robbery counts and other various crime rates, counts and averages, some of these variables are represented below. The averages and the populations of the neighborhoods are based on 2016 Census Population, hence, the population changes between 2014 and 2019 are neglected. 
+
+This data is interesting because it reports different crime counts in different neighborhoods in Toronto. I am interested in analyzing the relationship between population and average crime rates. There are various social crimes reported in this data set which are robbery, break and enter, auto theft, theft over. This data is good for analyzing because it reports counts, rates ,and averages, hence, it does not require much mutation. In addition, the data is numeric which is also beneficial because it is easier to visualize the data. The data set can also be improved in some ways. For example, the population could have been reported for each year so that we can a more in-depth analysis to see how population growth is associated with social crime counts in those neighborhoods but it would have been more costly for the city to obtain population for all neighborhoods in each year.
+
+
+```{r, echo = F}
+crime_data %>% 
+  select(Neighbourhood, Population, Assault_Rate_2019, AutoTheft_2019, BreakandEnter_2019, Homicide_2019, 	
+Robbery_2019) %>% 
+  summary()
+```
+
+
+
+
+# Part b
+
+```{r, echo = F, message= F}
+crime_data %>% 
+  ggplot(aes(x = Population, y = BreakandEnter_AVG)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(y = "Break and Enter Averages of 2014 to 2019",
+       title = "Population vs. Break and Enter Averages in Toronto Neighborhoods")
+```
+
+There are 140 data points in the scatter plot above. These data points are the different neighborhoods in Toronto. The scatter plot above has population of the neighborhoods as the explanatory variable and break and enter average between 2014 and 2019 as the outcome variable. This bivariate analysis is interesting because higher population is associated with higher crime rates, especially for some type of crimes which are usually the social crimes such as robbery, car theft, and break and enter. Vicky Chuqiao Yang, author of Bigger cities boost 'social crimes', says that "bigger cities are a double-edged sword, what leads to more innovation and wealth in bigger cities also makes them more dangerous at the same time." Hence, I have graphed population of the neighborhoods, and break and enter crime averages over six years of these neighborhoods to observe if this trend also holds in Toronto neighbors. 
+
+Initial observation of the linear model suggests that there is a positive correlation between the population and break and enter averages. However, most of the neighborhoods have less than 30,000 people living in it, hence, most of the points are concentrated on the bottom left side of the graph which makes it hard to derive an outcome visually. In order to better understand and visualize this relationship between population and social crimes, we may need to filter our data. In addition, we must analyze other types of crimes both social and other (e.g. homicide, assault) that were reported in the data set.  
+
+# Part c
+
+```{r, echo = F, message = F}
+social_crime_data <- 
+  crime_data %>% 
+  select(OBJECTID, Neighbourhood, Population, AutoTheft_AVG, BreakandEnter_AVG, Robbery_AVG)
+
+other_crime_data <- 
+  crime_data %>% 
+  select(OBJECTID, Neighbourhood, Population, Assault_AVG, Homicide_AVG)
+
+social_crime_data %>% 
+  ggplot() +
+  coord_cartesian(ylim = c(0, 200)) +
+  geom_point(aes(x = Population, y = BreakandEnter_AVG)) +
+  geom_point(aes(x = Population, y = Robbery_AVG), color = 'red') +
+  geom_point(aes(x = Population, y = AutoTheft_AVG), color = 'blue') +
+  geom_smooth(aes(x = Population, y = BreakandEnter_AVG), method = "lm", se = F, color = 'black') +
+  geom_smooth(aes(x = Population, y = Robbery_AVG), method = "lm", se = F, color = 'red') +
+  geom_smooth(aes(x = Population, y = AutoTheft_AVG), method = "lm", se = F, color = 'blue') +
+  labs(y = "Social Crime Rate Averages of 2014 to 2019",
+       title = "Population vs. Social Crime Averages in Toronto Neighborhoods")
+```
+
+The graph above visualizes population and social crime averages of neighborhoods between 2014 and 2019. Black line and points represent break and enter averages, red line and points represent robbery averages, and blue line and points are represent auto theft averages. We see that there is a positive correlation for all types of crimes under social crimes. Break and enter averages increase the most as the population gets larger. Slopes for both robbery and auto theft are pretty similar, almost parallel to one another. In addition, y-axis is limited to 200 so that the data is better visualized and easier to observe.  
+
+```{r, echo = F, message = F}
+other_crime_data %>% 
+  ggplot() +
+  geom_point(aes(x = Population, y = Assault_AVG), color = 'orange') +
+  geom_smooth(aes(x = Population, y = Assault_AVG), method = "lm", se = F, color = 'orange') +
+  labs(y = "Population vs. Assault Averages of 2014 to 2019",
+       title = "Population vs. Assault Averages in Toronto Neighborhoods")
+```
+
+```{r, echo = F, message = F}
+other_crime_data %>% 
+  ggplot() +
+  geom_point(aes(x = Population, y = Homicide_AVG), color = 'green') +
+  geom_smooth(aes(x = Population, y = Homicide_AVG), method = "lm", color = 'green') +
+    labs(y = "Population vs. Homicide Averages of 2014 to 2019",
+       title = "Population vs. Homicide Averages in Toronto Neighborhoods")
+```
+
+
+Last two graphs visualize other crimes averages on population. Crimes categorized as other are assault and homicide. For homicide we observe similar slope to auto theft and robbery, however, linear model captures almost no data. It seems like homicide is not correlated with population. We observe that highest homicide rates are for mid-size neighborhoods. For assault, averages we observe the highest slope, including social crimes. If assault averages over those six years, have higher positive correlation with population, this would cause us to fail in rejecting the null hypothesis. We consider null hypothesis for this study to be there are no  differences between the correlation between population and social crime averages and between population and other crime averages. Whereas the alternative hypothesis that we are testing for is that social crimes have higher positive correlation with population compared to other crimes. 
+
+
+# Part d
+
+In this study, we aimed to observe the correlation between population and crime rates in neighborhoods in Toronto. However, the study would be more in-depth and would able to provide more information if instead of population we used population density. I have provided prior information regarding how population and population growth may be associated with higher crime rates in the city. We have seen in the analysis that higher population is associated with higher crime in Toronto neighborhoods but initially I suggested that this increase would be more apparent, would have a higher positive correlation, for social crimes such as robbery and auto theft compared to other reported crimes which are assault and homicide. However, data visualizations have showed that this hypothesis is likely to be false. Assault crime averages between 2014 and 2019 was associated with larger increase as the population gets larger. With this background research we can conclude that that initial hypothesizes are likely to be untrue. 
+
+Better hypothesizes may be concern about population density rather than population. Thus, the alternative hypothesis would be that the higher population density is associated with higher social crime rates in Toronto neighborhoods. In contrast, the null hypothesis would be higher population density is not associated with higher crime rates in Toronto neighborhoods. In order to analyze, these hypothesis we must obtain data regarding the surface area of those non-overlapping neighborhoods so that we can obtain population densities for each of the observations. Then we can visualize data and use regression to provide evidence for the alternative hypothesis.
+
+# Part e
+
+Bibliography:
+
+1. Wu, Changbao, and Mary E. Thompson. "Basic Concepts in Survey Sampling." Sampling Theory and Practice. Springer, Cham, 2020. 3-15.
+
+2. Waclawski, Eugene. "How I use it: Survey monkey." Occupational Medicine 62.6 (2012): 477-477.
+
+3. “Open Data Dataset.” City of Toronto Open Data Portal, open.toronto.ca/dataset/neighbourhood-crime-rates/. 
+
+4. Santa Fe Institute. (2019, September 18). Bigger cities boost 'social crimes'. ScienceDaily. Retrieved October 2, 2020 from www.sciencedaily.com/releases/2019/09/190918093101.htm
